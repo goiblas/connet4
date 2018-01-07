@@ -1,0 +1,140 @@
+
+.player {
+    padding: 17px 20px;
+    min-width: 20vw;
+    background-color: rgba(0, 0, 0, 0.12);
+    display: flex;
+    &__name {
+        flex: 1;
+    }
+    &__wins {
+        font-weight: 700;
+    }
+    
+    &.actived {
+        background-color: #fff;
+        box-shadow: rgba(0, 0, 0, 0.3) 0 5px 14px -6px;
+    }
+
+    &__wrap {
+        display: flex;
+        justify-content: center;
+        padding: 0.5rem;
+        margin-bottom: 1rem;
+    }
+}
+.header {
+    padding: 1rem 0;
+}
+.board {
+    position: relative;
+    max-width: 620px;
+    margin: auto;
+
+    &__horizontal {
+        display: flex;
+        > div {
+            flex: 1;
+            position: relative;
+            height: 14.3vw;
+            @media (min-width: 616px) {
+                height: 88px;
+            }
+        }
+    }
+
+    &__btns {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        display: flex;
+
+        button { margin: auto;}
+    }
+
+    &__chip {
+
+        width: 100%;
+        padding-bottom: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: rgba(0, 0, 0, 0.12);
+        
+        &::before,
+        &::after {
+            content: '';
+            display: block;
+            position: absolute;
+            pointer-events: none;
+        }
+        &::after {
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            background-image: url('/assets/clip-path.svg');
+            background-size: 100.02%;
+        }
+        &::before {
+            width: 90%;
+            height: 90%;
+            top: 5%;
+            left: 5%;
+            border-radius: 100%;
+        }
+        &.player1::before {
+            background-color: #F9D984;
+        }
+        &.player2::before {
+            background-color: #ED5F75;
+        }
+        &.winChip::before {
+            background-color: #fff;
+        }
+    }
+}
+
+@for $i from 1 through 6 {
+    .board__horizontal:nth-child(#{$i}) {
+        .newChip::before {
+            box-shadow: rgba(255, 255, 255, 0.85) 0 0 20px;
+            transform: translateY(-($i * 100%));
+            animation: downChip ($i * .1s) ease-in forwards,
+            innerEnlighten .5s alternate infinite;
+        }
+        .newChip.winChip::before {
+            animation: downChip ($i * .1s) ease-in forwards;
+        }
+    }
+}
+
+.columnBtn {
+    cursor: pointer;
+    flex: 1;
+    height: 100%;
+}
+
+
+@keyframes downChip {
+    80% {
+        transform:  translateY(0);
+    }
+    90% {
+        transform:  translateY(-10px);
+    }
+    100% {
+        transform:  translateY(0%);
+    }
+}
+
+@keyframes innerEnlighten {
+    0% {
+        box-shadow: inset rgba(0, 0, 0, 0.15) 0 0 0 2000px;
+    }
+    100% {
+        box-shadow: inset rgba(0, 0, 0, 0.0) 0 0 0 2000px;
+    }
+}

@@ -1,0 +1,26 @@
+<header class="header">
+  <div class="player__wrap">
+    <div *ngFor="let player of players" class="player" [class.actived]="player.actived">
+      <div class="player__name">
+        {{player.name}}
+      </div>
+      <div class="player__wins">
+        {{player.wins}}
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+<div class="board">
+  <div class="board__horizontal" *ngFor="let horizontal of board">
+      <div *ngFor="let chip of horizontal">
+          <div class="board__chip" [ngClass]="{'player1': chip.symbol === 'x', 'player2': chip.symbol === 'o', 'newChip': chip.isNew, 'winChip': chip.isWin}"></div>
+      </div>
+    </div>
+      <div class="board__btns">
+          <div *ngFor="let i of columns" class="columnBtn" (click)="columnSeleted(i)">
+        </div>
+      </div>
+</div>
+</main>
