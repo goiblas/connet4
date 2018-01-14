@@ -65,4 +65,19 @@ amount = 4;
     }
     return matriz;
   }
+
+  public isTied(board: Array<Array<P>>, lastPoint): boolean {
+    const boardFill = board.map((h, ih) => {
+      return h.map( (c, ic) => {
+        if ( ih === lastPoint.h && ic === lastPoint.v) {
+          return {...c, symbol: lastPoint.symbol };
+        }
+        return c;
+      });
+    });
+
+    return boardFill.every( h => {
+      return h.every( cell => cell.symbol !== 'e');
+    });
+  }
 }

@@ -55,7 +55,8 @@ export class GameComponent implements OnInit {
         const actionAddWin = new WinPlayerAction( this.currentPlayer.name);
         this.store.dispatch(actionAddWin);
         setTimeout( () => this.restart(), 3000);
-
+      } else if ( this.utils.isTied(this.board, chip)) {
+        this.restart();
       } else {
         this.store.dispatch({ type: TOGGLE_PLAYER});
       }
